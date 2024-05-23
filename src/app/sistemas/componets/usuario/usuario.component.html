@@ -1,0 +1,122 @@
+<div class="row">
+    <div class="col-md-12"><br></div>
+</div>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="card">
+
+            <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">Manteninimiento de Usuario</h4>
+                <div class="flex-shrink-0">
+                    <div class="form-check form-switch form-switch-right form-switch-md">
+
+                        <button type="button" class="btn btn-primary add-btn" id="create-btn" (click)="fnOpenModal(content, '')">
+                          <i class="ri-add-line align-bottom me-1"></i> Nuevo Usuario
+                      </button>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- end card header -->
+
+            <div class="card-body">
+
+                <div class="live-preview">
+                    <div class="table-responsive">
+                        <table class="table align-middle table-nowrap mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Login</th>
+                                    <th scope="col">Password</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let jsonUsuario of tabla_ListaUsuarios" class="table-light">
+                                    <th scope="row">{{jsonUsuario.id}}</th>
+                                    <td>{{jsonUsuario.nombre}}</td>
+                                    <td>{{jsonUsuario.login}}</td>
+                                    <td>{{jsonUsuario.password}}</td>
+                                    <td class="text-center">
+                                        <a class="btn btn-primary btn-sm" pTooltip="Editar" tooltipPosition="top" (click)="fnOpenModal(content, jsonUsuario.id)">Editar</a>&nbsp;
+                                        <a class="btn btn-danger btn-sm" pTooltip="Anular" tooltipPosition="top" (click)="fnAnularRegistro(jsonUsuario.id)"> Anular</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2"></div>
+
+</div>
+
+
+
+
+
+
+<!-- Add ListJs Data -->
+<ng-template #content role="document" let-modal>
+
+    <div class="modal-header bg-primary p-3">
+        <h5 class="modal-title text-light" id="exampleModalLabel">Tipo Base</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+
+    <form [formGroup]="formGroup_FormUsuario" (ngSubmit)="btnGuardarRegistro()" class="tablelist-form" autocomplete="off">
+
+        <div class="modal-body">
+
+            <input type="hidden" formControlName="formTxhId" [(ngModel)]="ngFrmVal_id" />
+
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="formTxtNombre">Nombre:</label>
+                        <input id="formTxtNombre" class="form-control" type="text" pInputText formControlName='formTxtNombre' [(ngModel)]="ngFrmVal_nombre">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="formTxtLogin">Login:</label>
+                        <input id="formTxtLogin" class="form-control" type="text" pInputText formControlName='formTxtLogin' [(ngModel)]="ngFrmVal_login">
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="formTxtPassword">Contraseña:</label>
+                        <input id="formTxtPassword" class="form-control" type="password" pInputText formControlName='formTxtPassword' [(ngModel)]="ngFrmVal_password">
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <div class="hstack gap-2 justify-content-end">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" (click)="modal.close('Close click')">Cerrar</button>
+                <button type="submit" class="btn btn-danger" id="add-btn">Registrar</button>
+            </div>
+        </div>
+
+    </form>
+</ng-template>
